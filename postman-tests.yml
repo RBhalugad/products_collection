@@ -1,0 +1,32 @@
+name: Run Postman Collection
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:   # allows manual run
+
+jobs:
+  run-postman:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Newman
+        run: |
+          npm install -g newman
+
+      - name: Run Postman Collection
+        run: |
+          newman run ./postman/collection.json \
+          -e ./postman/environment.json \
+          --reporters cli,junit \
+          --reporter-junit-export results.xml
