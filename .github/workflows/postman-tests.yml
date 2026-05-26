@@ -30,6 +30,13 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
 
+      - name: Verify Postman files exist
+        run: |
+          [ -f Products.postman_collection.json ] || (echo "Missing Products.postman_collection.json" && exit 1)
+          [ -f product_data.json ] || (echo "Missing product_data.json" && exit 1)
+          [ -f OnlineStoreAPI.postman_globals.json ] || (echo "Missing OnlineStoreAPI.postman_globals.json" && exit 1)
+          echo "All required files found"
+
       - name: Run Postman Collection
         run: |
           newman run Products.postman_collection.json \
