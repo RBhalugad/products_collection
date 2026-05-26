@@ -34,7 +34,7 @@ jobs:
         run: |
           newman run Products.postman_collection.json \
           -d product_data.json \
-          -g workspace.postman_globals.json \
+          -g OnlineStoreAPI.postman_globals.json \
           -r htmlextra \
           --reporter-htmlextra-export report.html
 
