@@ -26,7 +26,8 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run ./postman/collection.json \
-          -e ./postman/environment.json \
+          newman run ./products_collection/Products.postman_collection.json \
+          -d ./products_collection/products_data.csv \
+          -g ./products_collection/OnlineStoreAPI.postman_globals.json \
           --reporters cli,junit \
           --reporter-junit-export results.xml
